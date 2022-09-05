@@ -2,24 +2,18 @@
 import { ref } from 'vue';
 import ShortProfile from './ShortProfile.vue';
 
-const count = ref(0);
-defineProps({
-  msg: Number,
-  name: String,
-});
+import { storeToRefs, mapActions } from 'pinia';
+import { useViteStore } from './../store/useStore';
 
-const data = ['kelvin', 'sola', 'Adewale'];
+const globalState = useViteStore();
+const { msg, count } = storeToRefs(globalState);
+const { increaseCount } = globalState;
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-  <div v-for="one in data">
+  <h1>{{ msg }} {{ count }}</h1>
+  <button @click="increaseCount">Increase count</button>
+  <div v-for="one in globalState.getDataService">
     <ShortProfile :name="one" />
   </div>
 </template>
-
-<style scoped>
-.read-the-docs {
-  color: #888;
-}
-</style>

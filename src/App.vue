@@ -1,16 +1,25 @@
+<script setup>
+import { useRoute } from 'vue-router';
+const notHomePath = Object.keys(useRoute().params).length == 0 ? false : true;
+</script>
+
 <template>
-  <div>
+  <div class="nav">
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    <div v-if="this.$route.params.name">
+      <router-link to="/">Go back</router-link>
+    </div>
   </div>
   <router-view />
 </template>
 
 <style scoped>
+.nav {
+  display: flex;
+  flex-direction: column;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
